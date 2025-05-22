@@ -1,0 +1,31 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Amplify (Gen 2 specific entries might evolve, this is a good start)
+amplify/.config/
+amplify/logs/
+amplify/artifacts/
+amplify/local/
+amplify/sandbox/
+# amplify/#current-cloud-backend/ # Legacy, but good to keep for now
+# amplify/backend/amplify-meta.json # Legacy
+# amplify/backend/awscloudformation/ # Legacy
+build/
+dist/
+.DS_Store
+*.zip
+*.lock
+
+# IDE specific
+.vscode/
+.idea/
+
+# Secrets - ensure no secrets are committed
+# .env
+# .env*.local
+# secrets*.json
