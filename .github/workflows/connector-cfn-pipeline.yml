@@ -1,0 +1,42 @@
+name: Build & Distribute Connector CFN Template
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to main
+    paths:
+      - 'packages/connector-cfn/**' # Only if connector code changes
+      - '.github/workflows/connector-cfn-pipeline.yml' # Or if workflow itself changes
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC to AWS
+      contents: read  # Required to checkout the repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Match your project's Node.js version
+          cache: 'npm'
+
+      - name: TODO - Configure AWS Credentials (OIDC)
+        run: echo "TODO: Configure AWS credentials using OIDC for role arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/GitHubActionsConnectorCFNRole in region ap-south-1"
+
+      - name: TODO - Install dependencies and Synthesize CloudFormation Template using CDK
+        working-directory: ./packages/connector-cfn
+        run: |
+          echo "TODO: cd into packages/connector-cfn"
+          echo "TODO: npm ci (once connector-cfn is a CDK project)"
+          echo "TODO: npx cdk synth --quiet > ../../ebs-hygiene-connector.template.json (once CDK is set up)"
+
+      - name: TODO - Upload CFN Template to S3
+        run: |
+          echo "TODO: aws s3 cp ../../ebs-hygiene-connector.template.json s3://YOUR_CFN_S3_BUCKET/ebs-hygiene-connector/ebs-hygiene-connector.template.json"
+          echo "TODO: Ensure S3 bucket YOUR_CFN_S3_BUCKET exists and has versioning."
