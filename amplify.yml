@@ -1,0 +1,36 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        # This command deploys your Amplify Gen 2 backend resources
+        # The --yes flag auto-confirms prompts during deployment
+        - npx amplify deploy --yes
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Navigate to your frontend app's directory within the monorepo
+        - echo "Navigating to frontend directory packages/frontend"
+        - cd packages/frontend
+        # Install frontend dependencies
+        - echo "Installing frontend dependencies with npm ci"
+        - npm ci
+    build:
+      commands:
+        # Build your React app (this command might change based on your React setup, e.g., Vite uses 'npm run build')
+        - echo "Building frontend application"
+        - npm run build
+  artifacts:
+    # Output directory of your frontend build.
+    # Create React App usually uses 'build', Vite often uses 'dist'.
+    # We will assume 'dist' for now for a modern React setup (like Vite).
+    # If you use Create React App, change 'dist' to 'build'.
+    baseDirectory: packages/frontend/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      # Cache node_modules for faster builds
+      - node_modules/**/* # For root node_modules (if any relevant to frontend build directly)
+      - packages/frontend/node_modules/**/* # For frontend-specific node_modules
