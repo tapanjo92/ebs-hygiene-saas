@@ -29,3 +29,8 @@ dist/
 # .env
 # .env*.local
 # secrets*.json
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
